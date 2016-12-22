@@ -21,5 +21,6 @@ ADD .bashrc ~/.bashrc
 #CMD ["export","LD_LIBRARY_PATH=/GMSEC_API/bin/"]
 #CMD ["source","~/.bashrc"]
 ENV LD_LIBRARY_PATH /GMSEC_API/bin
-CMD ["/GMSEC_API/bin/gmsub","server=gmsec_bolt:5000","connectiontype=gmsec_bolt"]
 
+#server name must be same name given to gmsec bolt server
+CMD ["/GMSEC_API/bin/gmsub","server=gmbolt:5000","connectiontype=gmsec_bolt"]

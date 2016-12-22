@@ -1,0 +1,17 @@
+gmbolt:
+  restart: always
+  build: ./gmsec_bolt
+  ports:
+    - "5000"
+
+gmsub:
+  restart: always
+  build: ./gmsec_sub
+  links:
+    - gmbolt:gmbolt
+
+gmpub:
+  restart: always
+  build: ./gmsec_pub
+  links:
+    - gmbolt:gmbolt
