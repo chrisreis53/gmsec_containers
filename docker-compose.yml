@@ -4,14 +4,23 @@ gmbolt:
   ports:
     - "5000"
 
+rabbitmq:
+  restart: always
+  image: rabbitmq:3-management
+  ports:
+    - "80:15672"
+    - "5672"
+
 gmsub:
   restart: always
   build: ./gmsec_sub
   links:
     - gmbolt:gmbolt
+    - rabbitmq
 
 gmpub:
   restart: always
   build: ./gmsec_pub
   links:
     - gmbolt:gmbolt
+    - rabbitmq
