@@ -1,26 +1,40 @@
 gmbolt:
   restart: always
-  build: ./gmsec_bolt
-  ports:
-    - "5000"
+  image: chrisreis53/gmsec_node:2-bolt
+  command: ["java","-jar","/GMSEC_API/bin/bolt.jar","port=5000"]
 
 rabbitmq:
   restart: always
-  image: rabbitmq:3-management
+  build: ./rabbitmq
   ports:
     - "80:15672"
-    - "5672"
+
+activemq:
+  restart: always
+  image: webcenter/activemq:latest
+  ports:
+    - "8161:8161"
+    - "61616:61616"
+    - "61613:61613"
 
 gmsub:
   restart: always
   build: ./gmsec_sub
+  environment:
+    - LD_LIBRARY_PATH=/GMSEC_API/bin
   links:
-    - gmbolt:gmbolt
+    - gmbolt
     - rabbitmq
+  command: /bin/bash /code/delay.sh
+  #command: ["/GMSEC_API/bin/gmsub","server=gmbolt:5000","connectiontype=gmsec_bolt"]
 
 gmpub:
   restart: always
   build: ./gmsec_pub
+  environment:
+    - LD_LIBRARY_PATH=/GMSEC_API/bin
   links:
-    - gmbolt:gmbolt
+    - gmbolt
     - rabbitmq
+  command: ["bash","/code/delay.sh"]
+  #command: ["/GMSEC_API/bin/gmpub","server=gmbolt:5000","iterations=2","connectiontype=gmsec_bolt","interval_ms=500"]
