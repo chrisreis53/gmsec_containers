@@ -1,21 +1,23 @@
 gmbolt:
   restart: always
   image: chrisreis53/gmsec_node:2-bolt
-  command: ["java","-jar","/GMSEC_API/bin/bolt.jar","port=5000"]
-
-rabbitmq:
-  restart: always
-  build: ./rabbitmq
+  command: ["java","-jar","/GMSEC_API/bin/bolt.jar","port=9100"]
   ports:
-    - "80:15672"
+    - "9100:9100"
 
-activemq:
+gm_sys_data:
   restart: always
-  image: webcenter/activemq:latest
+  build: ./gmsec_sys_data
+  links:
+    - gmbolt
+
+gm_telem_server:
+  restart: always
+  build: ./gmsec_telem_server
+  links:
+    - gmbolt
   ports:
-    - "8161:8161"
-    - "61616:61616"
-    - "61613:61613"
+    - "8081:8081"
 
 gmsub:
   restart: always
@@ -24,17 +26,43 @@ gmsub:
     - LD_LIBRARY_PATH=/GMSEC_API/bin
   links:
     - gmbolt
-    - rabbitmq
-  command: /bin/bash /code/delay.sh
-  #command: ["/GMSEC_API/bin/gmsub","server=gmbolt:5000","connectiontype=gmsec_bolt"]
+    #- rabbitmq
+  #command: /bin/bash /code/delay.sh
+  command: ["/GMSEC_API/bin/gmsub","server=gmbolt:9100","connectiontype=gmsec_bolt","loglevel=none"]
 
-gmpub:
+couchdb:
   restart: always
-  build: ./gmsec_pub
-  environment:
-    - LD_LIBRARY_PATH=/GMSEC_API/bin
+  image: couchdb:latest
+
+openmct:
+  restart: always
+  build: ./openmct_server
   links:
-    - gmbolt
-    - rabbitmq
-  command: ["bash","/code/delay.sh"]
-  #command: ["/GMSEC_API/bin/gmpub","server=gmbolt:5000","iterations=2","connectiontype=gmsec_bolt","interval_ms=500"]
+    - couchdb
+  ports:
+    - "8080:8080"
+
+# rabbitmq:
+#   restart: always
+#   build: ./rabbitmq
+#   ports:
+#     - "80:15672"
+
+# activemq:
+#   restart: always
+#   image: webcenter/activemq:latest
+#   ports:
+#     - "8161:8161"
+#     - "61616:61616"
+#     - "61613:61613"
+
+# gmpub:
+#   restart: always
+#   build: ./gmsec_pub
+#   environment:
+#     - LD_LIBRARY_PATH=/GMSEC_API/bin
+#   links:
+#     - gmbolt
+#     - rabbitmq
+#   command: ["bash","/code/delay.sh"]
+#   #command: ["/GMSEC_API/bin/gmpub","server=gmbolt:5000","iterations=2","connectiontype=gmsec_bolt","interval_ms=500"]
