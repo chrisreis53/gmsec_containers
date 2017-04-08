@@ -8,27 +8,25 @@ gmbolt:
 gm_sys_data:
   restart: always
   build: ./gmsec_sys_data
+  volumes:
+    - /home/christopher/dev/GMSEC_API-4.2:/GMSEC_API-4.2
+  environment:
+    - LD_LIBRARY_PATH=/GMSEC_API-4.2/bin
   links:
     - gmbolt
 
 gm_telem_server:
   restart: always
   build: ./gmsec_telem_server
+  volumes:
+    - /home/christopher/dev/GMSEC_API-4.2:/GMSEC_API-4.2
+  environment:
+    - LD_LIBRARY_PATH=/GMSEC_API-4.2/bin
+    - GMSEC_PLATFORM=linux.x86_64
   links:
     - gmbolt
   ports:
     - "8081:8081"
-
-gmsub:
-  restart: always
-  build: ./gmsec_sub
-  environment:
-    - LD_LIBRARY_PATH=/GMSEC_API/bin
-  links:
-    - gmbolt
-    #- rabbitmq
-  #command: /bin/bash /code/delay.sh
-  command: ["/GMSEC_API/bin/gmsub","server=gmbolt:9100","connectiontype=gmsec_bolt","loglevel=none"]
 
 couchdb:
   restart: always
