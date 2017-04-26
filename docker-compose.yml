@@ -44,6 +44,8 @@ gmsub:
 couchdb:
   restart: always
   image: couchdb:latest
+  volumes:
+    - ./couchdb:/usr/local/etc/couchdb/init.d
   ports:
     - "5984:5984"
 
