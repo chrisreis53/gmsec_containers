@@ -5,19 +5,32 @@ gmbolt:
   ports:
     - "9100:9100"
 
-gm_sys_data:
+gm_kerbal_adaptor:
   restart: always
-  build: ./gmsec_sys_data
+  build: ./gmsec_ubuntu
+  volumes:
+    - ../GMSEC_API-4.2:/GMSEC_API
+  environment:
+    - LD_LIBRARY_PATH=/GMSEC_API/bin
   links:
     - gmbolt
+  #command: ["/GMSEC_API/bin/gmpub","server=gmbolt:9100","iterations=200","connectiontype=gmsec_bolt","interval_ms=1000", "loglevel=NONE"]
+  command: ["/GMSEC_API/bin/gm_kerbal_adaptor","server=gmbolt:9100","connectiontype=gmsec_bolt","loglevel=NONE"]
 
-gm_telem_server:
+gm_kerbal_tlm_provider:
   restart: always
-  build: ./gmsec_telem_server
+  build: ./gmsec_ubuntu
+  volumes:
+    - ../GMSEC_API-4.2:/GMSEC_API
+  environment:
+    - LD_LIBRARY_PATH=/GMSEC_API/bin
   links:
     - gmbolt
   ports:
     - "8081:8081"
+  #command: ["/GMSEC_API/bin/gmpub","server=gmbolt:9100","iterations=200","connectiontype=gmsec_bolt","interval_ms=1000", "loglevel=NONE"]
+  command: ["/GMSEC_API/bin/gm_telemetry_server","server=gmbolt:9100","connectiontype=gmsec_bolt","loglevel=NONE"]
+
 
 gmsub:
   restart: always
@@ -27,17 +40,19 @@ gmsub:
   links:
     - gmbolt
     #- rabbitmq
-  #command: /bin/bash /code/delay.sh
-  command: ["/GMSEC_API/bin/gmsub","server=gmbolt:9100","connectiontype=gmsec_bolt","loglevel=none"]
+  command: ["/GMSEC_API/bin/gmsub","server=gmbolt:9100","connectiontype=gmsec_bolt","loglevel=NONE"]
 
 couchdb:
   restart: always
   image: couchdb:latest
+  ports:
+    - "5984:5984"
 
 openmct:
   restart: always
   build: ./openmct_server
   links:
+    - gm_kerbal_tlm_provider
     - couchdb
   ports:
     - "8080:8080"
