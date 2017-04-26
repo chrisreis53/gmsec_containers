@@ -31,7 +31,6 @@ gm_kerbal_tlm_provider:
   #command: ["/GMSEC_API/bin/gmpub","server=gmbolt:9100","iterations=200","connectiontype=gmsec_bolt","interval_ms=1000", "loglevel=NONE"]
   command: ["/GMSEC_API/bin/gm_telemetry_server","server=gmbolt:9100","connectiontype=gmsec_bolt","loglevel=NONE"]
 
-
 gmsub:
   restart: always
   build: ./gmsec_sub

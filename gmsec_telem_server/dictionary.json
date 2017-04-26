@@ -1,0 +1,222 @@
+{
+    "name": "Example Spacecraft",
+    "identifier": "sc",
+    "subsystems": [
+        {
+            "name": "Propulsion",
+            "identifier": "prop",
+            "measurements": [
+                {
+                    "name": "Fuel",
+                    "identifier": "prop.fuel",
+                    "units": "kilograms",
+                    "type": "float"
+                },
+                {
+                    "name": "Thrusters",
+                    "identifier": "prop.thrusters",
+                    "units": "None",
+                    "type": "string"
+                }
+            ]
+        },
+        {
+            "name": "Communications",
+            "identifier": "comms",
+            "measurements": [
+                {
+                    "name": "Received",
+                    "identifier": "comms.recd",
+                    "units": "bytes",
+                    "type": "integer"
+                },
+                {
+                    "name": "Sent",
+                    "identifier": "comms.sent",
+                    "units": "bytes",
+                    "type": "integer"
+                }
+            ]
+        },
+        {
+            "name": "Power",
+            "identifier": "pwr",
+            "measurements": [
+                {
+                    "name": "Generator Temperature",
+                    "identifier": "pwr.temp",
+                    "units": "\u0080C",
+                    "type": "float"
+                },
+                {
+                    "name": "Generator Current",
+                    "identifier": "pwr.c",
+                    "units": "A",
+                    "type": "float"
+                },
+                {
+                    "name": "Generator Voltage",
+                    "identifier": "pwr.v",
+                    "units": "V",
+                    "type": "float"
+                }
+            ]
+        },
+        {
+            "name": "UBUNTUDEV System Information",
+            "identifier": "sys",
+            "measurements": [
+                {
+                    "name": "System Uptime",
+                    "identifier": "sys.uptime",
+                    "units": "s",
+                    "type": "float"
+                },
+                {
+                    "name": "Processor Percent",
+                    "identifier": "sys.proc_percent",
+                    "units": "%",
+                    "type": "float"
+                },
+                {
+                    "name": "Memory Used",
+                    "identifier": "sys.memused",
+                    "units": "Kbytes",
+                    "type": "float"
+                },
+                {
+                    "name": "System Idle",
+                    "identifier": "sys.idle",
+                    "units": "%",
+                    "type": "float"
+                },
+                {
+                    "name": "Memory Free",
+                    "identifier": "sys.memfree",
+                    "units": "Kbytes",
+                    "type": "float"
+                },
+                {
+                    "name": "Memory Total",
+                    "identifier": "sys.memtotal",
+                    "units": "Kbytes",
+                    "type": "float"
+                },
+                {
+                    "name": "Memory Active",
+                    "identifier": "sys.memactive",
+                    "units": "Kbytes",
+                    "type": "float"
+                },
+                {
+                    "name": "Memory Available",
+                    "identifier": "sys.memavailable",
+                    "units": "Kbytes",
+                    "type": "float"
+                },
+                {
+                    "name": "Received Bytes",
+                    "identifier": "sys.rxbytes",
+                    "units": "Bytes",
+                    "type": "float"
+                },
+                {
+                    "name": "Received Packets",
+                    "identifier": "sys.rxpackets",
+                    "units": "Bytes",
+                    "type": "float"
+                },
+                {
+                    "name": "Transmitted Bytes",
+                    "identifier": "sys.txbytes",
+                    "units": "Bytes",
+                    "type": "float"
+                },
+                {
+                    "name": "Transmitted Packets",
+                    "identifier": "sys.txpackets",
+                    "units": "Bytes",
+                    "type": "float"
+                }
+            ]
+        },
+        {
+            "name": "OTHER System Information",
+            "identifier": "sys1",
+            "measurements": [
+                {
+                    "name": "System Uptime",
+                    "identifier": "sys1.uptime",
+                    "units": "s",
+                    "type": "float"
+                },
+                {
+                    "name": "Processor Percent",
+                    "identifier": "sys1.proc_percent",
+                    "units": "%",
+                    "type": "float"
+                },
+                {
+                    "name": "Memory Used",
+                    "identifier": "sys1.memused",
+                    "units": "Kbytes",
+                    "type": "float"
+                },
+                {
+                    "name": "System Idle",
+                    "identifier": "sys1.idle",
+                    "units": "%",
+                    "type": "float"
+                },
+                {
+                    "name": "Memory Free",
+                    "identifier": "sys1.memfree",
+                    "units": "Kbytes",
+                    "type": "float"
+                },
+                {
+                    "name": "Memory Total",
+                    "identifier": "sys1.memtotal",
+                    "units": "Kbytes",
+                    "type": "float"
+                },
+                {
+                    "name": "Memory Active",
+                    "identifier": "sys1.memactive",
+                    "units": "Kbytes",
+                    "type": "float"
+                },
+                {
+                    "name": "Memory Available",
+                    "identifier": "sys1.memavailable",
+                    "units": "Kbytes",
+                    "type": "float"
+                },
+                {
+                    "name": "Received Bytes",
+                    "identifier": "sys1.rxbytes",
+                    "units": "Bytes",
+                    "type": "float"
+                },
+                {
+                    "name": "Received Packets",
+                    "identifier": "sys1.rxpackets",
+                    "units": "Bytes",
+                    "type": "float"
+                },
+                {
+                    "name": "Transmitted Bytes",
+                    "identifier": "sys1.txbytes",
+                    "units": "Bytes",
+                    "type": "float"
+                },
+                {
+                    "name": "Transmitted Packets",
+                    "identifier": "sys1.txpackets",
+                    "units": "Bytes",
+                    "type": "float"
+                }
+            ]
+        }
+    ]
+}
