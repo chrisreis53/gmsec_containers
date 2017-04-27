@@ -14,7 +14,6 @@ gm_kerbal_adaptor:
     - LD_LIBRARY_PATH=/GMSEC_API/bin
   links:
     - gmbolt
-  #command: ["/GMSEC_API/bin/gmpub","server=gmbolt:9100","iterations=200","connectiontype=gmsec_bolt","interval_ms=1000", "loglevel=NONE"]
   command: ["/GMSEC_API/bin/gm_kerbal_adaptor","server=gmbolt:9100","connectiontype=gmsec_bolt","loglevel=NONE"]
 
 gm_kerbal_tlm_provider:
@@ -28,7 +27,6 @@ gm_kerbal_tlm_provider:
     - gmbolt
   ports:
     - "8081:8081"
-  #command: ["/GMSEC_API/bin/gmpub","server=gmbolt:9100","iterations=200","connectiontype=gmsec_bolt","interval_ms=1000", "loglevel=NONE"]
   command: ["/GMSEC_API/bin/gm_telemetry_server","server=gmbolt:9100","connectiontype=gmsec_bolt","loglevel=NONE"]
 
 gmsub:
@@ -48,15 +46,6 @@ couchdb:
     - ./couchdb:/usr/local/etc/couchdb/init.d
   ports:
     - "5984:5984"
-
-mysql:
-  restart: always
-  image: mysql:5.6.26
-  environment:
-   - MYSQL_ROOT_PASSWORD=root
-   - MYSQL_DATABASE=gmsec
-  ports:
-    - "3306:3306"
 
 openmct:
   restart: always
