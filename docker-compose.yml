@@ -36,7 +36,6 @@ gmsub:
     - LD_LIBRARY_PATH=/GMSEC_API/bin
   links:
     - gmbolt
-    #- rabbitmq
   command: ["/GMSEC_API/bin/gmsub","server=gmbolt:9100","connectiontype=gmsec_bolt","loglevel=NONE"]
 
 couchdb:
@@ -44,6 +43,7 @@ couchdb:
   image: couchdb:latest
   volumes:
     - ./couchdb:/usr/local/etc/couchdb/init.d
+    - ./couchdb/persistant:/usr/local/var/lib/couchdb
   ports:
     - "5984:5984"
 
