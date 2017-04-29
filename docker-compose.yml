@@ -14,7 +14,7 @@ gm_kerbal_adaptor:
     - LD_LIBRARY_PATH=/GMSEC_API/bin
   links:
     - gmbolt
-  command: ["/GMSEC_API/bin/gm_kerbal_adaptor","server=gmbolt:9100","connectiontype=gmsec_bolt","loglevel=INFO","KERBAL_URL=192.168.0.58"]
+  command: ["/GMSEC_API/bin/gm_kerbal_adaptor","server=gmbolt:9100","connectiontype=gmsec_bolt","loglevel=NONE","KERBAL_URL=192.168.0.58"]
 
 gm_kerbal_tlm_provider:
   restart: always
@@ -36,7 +36,7 @@ gmsub:
     - LD_LIBRARY_PATH=/GMSEC_API/bin
   links:
     - gmbolt
-  command: ["/GMSEC_API/bin/gmsub","server=gmbolt:9100","connectiontype=gmsec_bolt","loglevel=INFO"]
+  command: ["/GMSEC_API/bin/gmsub","server=gmbolt:9100","connectiontype=gmsec_bolt","loglevel=NONE"]
 
 couchdb:
   restart: always
@@ -87,4 +87,4 @@ gmpub:
   links:
     - gmbolt
   #command: ["bash","/code/delay.sh"]
-  command: ["/GMSEC_API/bin/gmpub","server=gmbolt:9100","iterations=100","connectiontype=gmsec_bolt","interval_ms=5000","loglevel=NONE"]
+  command: ["/GMSEC_API/bin/gmpub","server=gmbolt:9100","iterations=100","connectiontype=gmsec_bolt","interval_ms=30000","loglevel=NONE"]
