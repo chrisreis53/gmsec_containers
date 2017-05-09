@@ -56,6 +56,15 @@ openmct:
   ports:
     - "8080:8080"
 
+mysql:
+  restart: always
+  image: mysql:5.6.26
+  environment:
+   - MYSQL_ROOT_PASSWORD=root
+   - MYSQL_DATABASE=gmsec
+  ports:
+    - "3306:3306"
+
 # rabbitmq:
 #   restart: always
 #   build: ./rabbitmq
