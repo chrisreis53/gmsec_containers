@@ -65,6 +65,12 @@ mysql:
   ports:
     - "3306:3306"
 
+marklogic:
+  restart: always
+  build: ./marklogic
+  links:
+    - gm_kerbal_tlm_provider
+
 # rabbitmq:
 #   restart: always
 #   build: ./rabbitmq
