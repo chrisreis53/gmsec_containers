@@ -1,9 +1,9 @@
 # Pull base image.
-FROM ubuntu:16.10
+FROM ubuntu:16.04
 MAINTAINER Christopher Reis "chrisreis53@gmail.com"
 
 RUN apt update
-RUN apt install -y libboost-all-dev libcurl4-openssl-dev
+RUN apt install -y libboost-all-dev libcurl4-openssl-dev libmysqlclient-dev
 
 WORKDIR /code
 

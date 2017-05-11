@@ -70,6 +70,15 @@ marklogic:
   build: ./marklogic
   links:
     - gm_kerbal_tlm_provider
+  ports:
+    - "7997:7997"
+    - "7998:7998"
+    - "7999:7999"
+    - "8001:8001"
+    - "8002:8002"
+    - "8000:8000"
+  hostname: "marklogic"
+  container_name: "marklogic"
 
 # rabbitmq:
 #   restart: always
