@@ -4,6 +4,8 @@ gmbolt:
   command: ["java","-jar","/GMSEC_API/bin/bolt.jar","port=9100"]
   ports:
     - "9100:9100"
+  hostname: "gmbolt"
+  container_name: "gmbolt"
 
 gm_kerbal_adaptor:
   restart: always
@@ -15,6 +17,8 @@ gm_kerbal_adaptor:
   links:
     - gmbolt
   command: ["/GMSEC_API/bin/gm_kerbal_adaptor","server=gmbolt:9100","connectiontype=gmsec_bolt","loglevel=NONE","KERBAL_URL=192.168.0.58"]
+  hostname: "gm_kerbal_adaptor"
+  container_name: "gm_kerbal_adaptor"
 
 gm_kerbal_tlm_provider:
   restart: always
@@ -28,6 +32,8 @@ gm_kerbal_tlm_provider:
   ports:
     - "8081:8081"
   command: ["/GMSEC_API/bin/gm_telemetry_server","server=gmbolt:9100","connectiontype=gmsec_bolt","loglevel=NONE"]
+  hostname: "gm_kerbal_tlm_provider"
+  container_name: "gm_kerbal_tlm_provider"
 
 gmsub:
   restart: always
@@ -37,6 +43,8 @@ gmsub:
   links:
     - gmbolt
   command: ["/GMSEC_API/bin/gmsub","server=gmbolt:9100","connectiontype=gmsec_bolt","loglevel=NONE"]
+  hostname: "gmsub"
+  container_name: "gmsub"
 
 couchdb:
   restart: always
@@ -46,6 +54,8 @@ couchdb:
     - ./couchdb/persistant:/usr/local/var/lib/couchdb
   ports:
     - "5984:5984"
+  hostname: "couchdb"
+  container_name: "couchdb"
 
 openmct:
   restart: always
@@ -55,6 +65,8 @@ openmct:
     - couchdb
   ports:
     - "8080:8080"
+  hostname: "openmct"
+  container_name: "openmct"
 
 mysql:
   restart: always
@@ -64,6 +76,8 @@ mysql:
    - MYSQL_DATABASE=gmsec
   ports:
     - "3306:3306"
+  hostname: "mysql"
+  container_name: "mysql"
 
 marklogic:
   restart: always
@@ -103,3 +117,5 @@ gmpub:
     - gmbolt
   #command: ["bash","/code/delay.sh"]
   command: ["/GMSEC_API/bin/gmpub","server=gmbolt:9100","iterations=100","connectiontype=gmsec_bolt","interval_ms=30000","loglevel=NONE"]
+  hostname: "gmpub"
+  container_name: "gmpub"
