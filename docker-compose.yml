@@ -20,6 +20,19 @@ marklogic:
   hostname: "marklogic"
   container_name: "marklogic"
 
+mysql:
+  restart: always
+  image: mysql:5.6.26
+  volumes:
+    - ./mysql:/var/lib/mysql
+  environment:
+   - MYSQL_ROOT_PASSWORD=root
+   - MYSQL_DATABASE=gmsec
+  ports:
+    - "3306:3306"
+  hostname: "mysql"
+  container_name: "mysql"
+  
 gm_kerbal_adaptor:
   restart: always
   build: ./gmsec_ubuntu
@@ -44,6 +57,7 @@ gm_kerbal_tlm_provider:
   links:
     - gmbolt
     - marklogic
+    - mysql
   ports:
     - "8081:8081"
   command: ["/GMSEC_API/bin/gm_telemetry_server","server=gmbolt:9100","connectiontype=gmsec_bolt","loglevel=NONE"]
@@ -82,17 +96,6 @@ openmct:
     - "8080:8080"
   hostname: "openmct"
   container_name: "openmct"
-
-mysql:
-  restart: always
-  image: mysql:5.6.26
-  environment:
-   - MYSQL_ROOT_PASSWORD=root
-   - MYSQL_DATABASE=gmsec
-  ports:
-    - "3306:3306"
-  hostname: "mysql"
-  container_name: "mysql"
 
 # rabbitmq:
 #   restart: always
