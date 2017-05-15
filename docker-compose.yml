@@ -7,6 +7,19 @@ gmbolt:
   hostname: "gmbolt"
   container_name: "gmbolt"
 
+marklogic:
+  restart: always
+  build: ./marklogic
+  ports:
+    - "7997:7997"
+    - "7998:7998"
+    - "7999:7999"
+    - "8001:8001"
+    - "8002:8002"
+    - "8000:8000"
+  hostname: "marklogic"
+  container_name: "marklogic"
+
 gm_kerbal_adaptor:
   restart: always
   build: ./gmsec_ubuntu
@@ -16,6 +29,7 @@ gm_kerbal_adaptor:
     - LD_LIBRARY_PATH=/GMSEC_API/bin
   links:
     - gmbolt
+    - marklogic
   command: ["/GMSEC_API/bin/gm_kerbal_adaptor","server=gmbolt:9100","connectiontype=gmsec_bolt","loglevel=NONE","KERBAL_URL=192.168.0.58"]
   hostname: "gm_kerbal_adaptor"
   container_name: "gm_kerbal_adaptor"
@@ -29,6 +43,7 @@ gm_kerbal_tlm_provider:
     - LD_LIBRARY_PATH=/GMSEC_API/bin
   links:
     - gmbolt
+    - marklogic
   ports:
     - "8081:8081"
   command: ["/GMSEC_API/bin/gm_telemetry_server","server=gmbolt:9100","connectiontype=gmsec_bolt","loglevel=NONE"]
@@ -78,21 +93,6 @@ mysql:
     - "3306:3306"
   hostname: "mysql"
   container_name: "mysql"
-
-marklogic:
-  restart: always
-  build: ./marklogic
-  links:
-    - gm_kerbal_tlm_provider
-  ports:
-    - "7997:7997"
-    - "7998:7998"
-    - "7999:7999"
-    - "8001:8001"
-    - "8002:8002"
-    - "8000:8000"
-  hostname: "marklogic"
-  container_name: "marklogic"
 
 # rabbitmq:
 #   restart: always
