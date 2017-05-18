@@ -14,9 +14,9 @@ marklogic:
     - "7997:7997"
     - "7998:7998"
     - "7999:7999"
+    - "8000:8000"
     - "8001:8001"
     - "8002:8002"
-    - "8000:8000"
   hostname: "marklogic"
   container_name: "marklogic"
 
@@ -100,8 +100,11 @@ openmct:
   links:
     - gm_kerbal_tlm_provider
     - couchdb
+  volumes:
+    - ../openmct:/opt/openmct
   ports:
     - "8080:8080"
+  command: ["npm","start"]    
   hostname: "openmct"
   container_name: "openmct"
 

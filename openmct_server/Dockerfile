@@ -3,11 +3,11 @@ MAINTAINER niceilm@naver.com
 
 WORKDIR /opt
 #RUN git clone https://github.com/chrisreis53/openmct.git
-ADD ./openmct openmct
+#ADD ./openmct openmct
 
 WORKDIR /opt/openmct
-RUN npm install
-RUN ./node_modules/bower/bin/bower install --allow-root
-RUN ./node_modules/gulp/bin/gulp.js install
+#RUN npm install
+#RUN ./node_modules/bower/bin/bower install --allow-root
+#RUN ./node_modules/gulp/bin/gulp.js install
 
 CMD npm start
