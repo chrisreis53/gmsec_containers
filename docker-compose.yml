@@ -33,13 +33,13 @@ mysql:
   hostname: "mysql"
   container_name: "mysql"
 
-spacecraft_server:
-  restart: always
-  build: ./example_server
-  ports:
-    - "8082:8082"
-  hostname: "spacecraft_server"
-  container_name: "spacecraft_server"
+#spacecraft_server:
+#  restart: always
+#  build: ./example_server
+#  ports:
+#    - "8082:8082"
+#  hostname: "spacecraft_server"
+#  container_name: "spacecraft_server"
 
 gm_kerbal_adaptor:
   restart: always
